@@ -25,8 +25,8 @@ namespace ProductCatalogApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MebCbsConection")));
-            services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MebCbsConection")));
+//            services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ProductCatalog")));
+            services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductCatalog")));
             services.AddMvc();
         }
 

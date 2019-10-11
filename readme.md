@@ -21,3 +21,9 @@ Swashbuckle.AspNetCore
 
 ## Created the Docker File
 in the directory of ProductCatalogApi `docker build -t shoes/catalog .`
+
+## Remove a docker image
+`docker rmi shoes/catalog` and clean the dependent images with name none `docker system prune`
+
+## Build Docker Compose
+`docker-compose build` run where docker compose is placed.

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using ProductCatalogApi.Data;
 using Microsoft.EntityFrameworkCore;
+using ProductCatalogApi.Domain;
 
 namespace ProductCatalogApi.Controllers
 {
@@ -59,6 +60,64 @@ namespace ProductCatalogApi.Controllers
             }
 
             return NotFound();
+        }
+        
+        // Posting catalog item 
+        // POST api/catalog/item
+        [HttpPost]
+        [Route(template: "items")]
+        public async Task<IActionResult> CreateProduct([FromBody] CatalogItem product)
+        {
+            var item = new CatalogItem
+            {
+                    CatalogBrandId = product.CatalogBrandId,
+                    CatalogTypeId = product.CatalogTypeId,
+                    Description = product.Description,
+                    Name = product.Name,
+                    PictureFileName = product.PictureFileName,
+                    Price = product.Price,
+                    
+            };
+            _catalogContext.CatalogItems.Add(entity: item);
+            await _catalogContext.SaveChangesAsync();
+            // after it is added to database it should return the added record
+            // call to the GetItemById and send the id of item.Id
+            return CreatedAtAction(actionName: nameof(GetItemById), value: new { id=item.Id });
+        }
+
+        [HttpPut]
+        [Route("items")]
+        public async Task<IActionResult> UpdatedProduct([FromBody] CatalogItem productToUpdate)
+        {
+            // search in the list of catalog items
+            var catalogItem =
+                await _catalogContext.CatalogItems.FirstOrDefaultAsync(i => i.Id == productToUpdate.Id);
+            if (catalogItem == null)
+            {
+                return NotFound(new {Message = $"Item with Id={productToUpdate.Id} not found!!"});
+            }
+            // if item exists
+            catalogItem = productToUpdate;
+            _catalogContext.CatalogItems.Update(catalogItem);
+            // save the changes to the database
+            await _catalogContext.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetItemById), new { id = productToUpdate.Id });
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var product = await _catalogContext.CatalogItems.FirstOrDefaultAsync(p => p.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            _catalogContext.CatalogItems.Remove(product);
+            await _catalogContext.SaveChangesAsync();
+            // give a no response 
+            return NoContent();
         }
     }
 }

@@ -12,3 +12,12 @@ Put the migrations under the Data folder
 dotnet ef migrations add  InitialMigration -o Data/Migrations
 dotnet ef database update
 ```
+
+## Documentation using Swagger
+Swashbuckle.AspNetCore
+
+## ASPNETCORE Docker image
+`docker pull microsoft/aspnetcore:2.0.0` and `docker pull microsoft/aspnetcore-build` install images from docker Hub.
+
+## Created the Docker File
+in the directory of ProductCatalogApi `docker build -t shoes/catalog .`

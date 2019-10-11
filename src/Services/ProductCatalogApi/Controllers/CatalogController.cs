@@ -39,5 +39,26 @@ namespace ProductCatalogApi.Controllers
             var items = await _catalogContext.CatalogBrands.ToListAsync();
             return Ok(items);
         }
+
+        [HttpGet]
+        [Route("items/{id:int}")]
+        public async Task<IActionResult> GetItemById(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest();
+            }
+
+            var item = await _catalogContext.CatalogItems.FirstOrDefaultAsync(c => c.Id == id);
+            if (item != null)
+            {
+                // replace the picture URL
+                item.PictureUrl = item.PictureUrl.Replace("http://externalcatalogbaseurltobereplaced",
+                    _settings.Value.ExternalCatalogBaseUrl);
+                return Ok(item);
+            }
+
+            return NotFound();
+        }
     }
 }

@@ -1,36 +1,37 @@
-# adding all service added here
 version: "3.2"
 
 networks:
-  frontend:
-  backend:
+   frontend:
+   backend:
 
 services:
-  catalog:
+   catalog:
       build:
-        context: ./src/Services/ProductCatalogApi
-        dockerfile: Dockerfile
+         context: ./src/Services/ProductCatalogApi
+         dockerfile: Dockerfile
       environment:
-        - DatabaseServer=mssqlserver
-        - DatabaseName=CatalogDb
-        - DatabaseUser=sa
-        - DatabasePassword=ProducApi(!)
+         - DatabaseServer=mssqlserver
+         - DatabaseName=CatalogDB
+         - DatabaseUser=sa
+         - DatabasePassword=ProductApi(!)
       container_name: catalogapi
       ports:
-        - "5000:80"
+         - "5000:80"
       networks:
-        - backend
-        - frontend
+         - backend
+         - frontend
       depends_on:
-        - mssqlserver
-  #mssql services
-  mssqlserver:
+         - mssqlserver
+         
+   mssqlserver:
       image: "microsoft/mssql-server-linux:latest"
       ports:
-        - "1433:1433"
+         - "1433:1433"
+
       container_name: mssqlcontainer
       environment:
-        - ACCEPT_EULA=Y
-        - SA_PASSWORD=ProductApi(!)
+         - ACCEPT_EULA=Y
+         - MSSQL_PID=Express
+         - SA_PASSWORD=ProductApi(!)
       networks:
-        - backend
+         - backend

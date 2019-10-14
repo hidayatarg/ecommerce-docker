@@ -27,3 +27,7 @@ in the directory of ProductCatalogApi `docker build -t shoes/catalog .`
 
 ## Build Docker Compose
 `docker-compose build` run where docker compose is placed.
+
+`docker-compose up mssqlserver` run the mssqlserver container.
+
+`docker-compose up catalog` run the catalog container.

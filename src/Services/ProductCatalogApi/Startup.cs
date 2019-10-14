@@ -30,17 +30,14 @@ namespace ProductCatalogApi
             services.Configure<CatalogSettings>(Configuration);
 //          services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ProductCatalog")));
 //          UPDATED With Docker Container
-          services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductCatalog")));
-            // connection string
-//            var server = Configuration["DatabaseServer"];
-//            var database = Configuration["DatabaseName"];
-//            var user = Configuration["DatabaseUser"];
-//            var password = Configuration["DatabaseUser"];
-//            var connectionString =
-//                String.Format($"Server={server};Database={database}; User ID={user}; Password={password};");
-            
-            
-//            services.AddDbContext<CatalogContext>(options => options.UseSqlServer(connectionString));
+//          Testings and development
+            var server = Configuration["DatabaseServer"] ?? "localhost";
+            var database = Configuration["DatabaseName"] ?? "CatalogDB";
+            var user = Configuration["DatabaseUser"] ?? "sa";
+            var password = Configuration["DatabasePassword"] ?? "ProductApi(!)";
+            var connectionString =
+                string.Format($"Server={server};Database={database};User ID={user};Password={password};");
+            services.AddDbContext<CatalogContext>(options => options.UseSqlServer(connectionString));
 
             services.AddMvc();
 //          adding swagger documentation API
@@ -52,7 +49,7 @@ namespace ProductCatalogApi
                 {
                     Title = "ShoesOnContainers - Product Catalog HTTP API",
                     Version = "v1",
-                    Description = "The Product Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
+                    Description = "The Product Catalog Micro-service HTTP API. This is a Data-Driven/CRUD micro-service sample",
                     TermsOfService = "Terms Of Service"
                 });
             });

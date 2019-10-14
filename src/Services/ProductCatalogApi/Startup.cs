@@ -30,17 +30,17 @@ namespace ProductCatalogApi
             services.Configure<CatalogSettings>(Configuration);
 //          services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ProductCatalog")));
 //          UPDATED With Docker Container
-//          services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductCatalog")));
-            // connection s tring
-            var server = Configuration["DatabaseServer"];
-            var database = Configuration["DatabaseName"];
-            var user = Configuration["DatabaseUser"];
-            var password = Configuration["DatabaseUser"];
-            var connectionString =
-                String.Format($"Server={server};Database={database}; User ID={user}; Password={password};");
+          services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductCatalog")));
+            // connection string
+//            var server = Configuration["DatabaseServer"];
+//            var database = Configuration["DatabaseName"];
+//            var user = Configuration["DatabaseUser"];
+//            var password = Configuration["DatabaseUser"];
+//            var connectionString =
+//                String.Format($"Server={server};Database={database}; User ID={user}; Password={password};");
             
             
-            services.AddDbContext<CatalogContext>(options => options.UseSqlServer(connectionString));
+//            services.AddDbContext<CatalogContext>(options => options.UseSqlServer(connectionString));
 
             services.AddMvc();
 //          adding swagger documentation API

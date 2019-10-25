@@ -35,3 +35,6 @@ in the directory of ProductCatalogApi `docker build -t shoes/catalog .`
 ## Generic Class to Call HTTP REQ. of
 This class is used to call all projects using HTTP Request.
 
+## Creating Service Class
+The service classes will consume the IHttpClient and ApiPaths classes. These classes are specific classes.
+We created two model classes (Catalog and CatalogItem) that will be used in the service classes.

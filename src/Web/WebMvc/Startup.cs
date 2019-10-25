@@ -10,6 +10,7 @@ using WebMvc.Infrastructure;
 using WebMvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebMvc.Services;
 
 namespace WebMvc
 {
@@ -25,10 +26,13 @@ namespace WebMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Make the AppSetting.cs as Configuration class and injectable in other classes
             services.Configure<AppSettings>(Configuration);
             // Dependency Injection Container
+            // orders matter here
             services.AddSingleton<IHttpClient, CustomHttpClient>();
-
+            services.AddSingleton<ICatalogService, CatalogService>();
+             
             services.AddMvc();
         }
 

@@ -31,3 +31,7 @@ in the directory of ProductCatalogApi `docker build -t shoes/catalog .`
 `docker-compose up mssqlserver` run the mssqlserver container.
 
 `docker-compose up catalog` run the catalog container.
+
+## Generic Class to Call HTTP REQ. of
+This class is used to call all projects using HTTP Request.
+
